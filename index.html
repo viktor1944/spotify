@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><script src="blob:null/3fd9ba54-4571-490d-83b6-0a0cf02f4c68"></script><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playlists do Spotify — Índice Alfabético</title>
+<style id="app-style">
+:root {
+  --background: #121212;
+  --surface: #181818;
+  --surface-hover: #222;
+  --border: #2c2c2c;
+  --text: #fff;
+  --muted: #aaa;
+  --green: #1ed760;
+  --green-dark: #169c46;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 190px;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(18, 18, 18, .97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+.header-inner,
+main {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.header-inner {
+  padding: 18px 18px 12px;
+}
+
+.top-line {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: clamp(25px, 4vw, 38px);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.search {
+  width: min(360px, 100%);
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+  outline: none;
+}
+
+.search:focus {
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, .28);
+}
+
+.alphabet {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 1px 0 6px;
+  scrollbar-width: thin;
+}
+
+.alphabet a {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 9px;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: #202020;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.alphabet a:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+main {
+  padding: 12px 18px 40px;
+}
+
+.playlist-row {
+  display: grid;
+  grid-template-columns: 44px minmax(180px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 62px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.playlist-row:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.playlist-row:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+
+.playlist-row:hover {
+  background: var(--surface-hover);
+}
+
+.number {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.playlist-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid rgba(30, 215, 96, .55);
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(30, 215, 96, .08);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.button.web {
+  border: 1px solid #4b4b4b;
+  color: #fff;
+  background: #292929;
+}
+
+.button.web:hover {
+  background: #383838;
+}
+
+.button.app {
+  color: #061b0d;
+  background: var(--green);
+}
+
+.button.app:hover {
+  background: #35e575;
+}
+
+.empty {
+  display: none;
+  padding: 42px 10px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.note {
+  margin: 14px 2px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 780px) {
+  html {
+    scroll-padding-top: 235px;
+  }
+
+  .top-line {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .playlist-row {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 8px;
+    padding: 11px 9px;
+  }
+
+  .actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    min-height: 35px;
+    padding: 7px 10px;
+  }
+}
+
+/* ===== Adicionar / editar / salvar ===== */
+[hidden] {
+  display: none !important;
+}
+
+.controls {
+  display: flex;
+  flex: 0 1 640px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.controls .search {
+  flex: 1 1 200px;
+  width: auto;
+  max-width: 360px;
+}
+
+.tool-btn {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #4b4b4b;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  font: 700 14px Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tool-btn:hover {
+  background: #383838;
+}
+
+.tool-btn.primary {
+  border-color: transparent;
+  background: var(--green);
+  color: #061b0d;
+}
+
+.tool-btn.primary:hover {
+  background: #35e575;
+}
+
+.tool-btn.save {
+  border-color: var(--green);
+  background: rgba(30, 215, 96, .1);
+  color: var(--green);
+}
+
+.tool-btn.save:hover {
+  background: rgba(30, 215, 96, .2);
+}
+
+.tool-btn[aria-pressed="true"] {
+  border-color: #fff;
+}
+
+.pill {
+  display: inline-block;
+  min-width: 20px;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #061b0d;
+  font-size: 12px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.row-tools {
+  display: none;
+  gap: 6px;
+}
+
+body.editing .row-tools {
+  display: inline-flex;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #4b4b4b;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: #383838;
+}
+
+.icon-btn.danger:hover {
+  border-color: #e5484d;
+  color: #ff6b6b;
+}
+
+@keyframes row-flash {
+  from { background: rgba(30, 215, 96, .25); }
+  to   { background: var(--surface); }
+}
+
+.playlist-row.flash {
+  animation: row-flash 1.8s ease-out;
+}
+
+#editor {
+  width: min(440px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+#editor::backdrop {
+  background: rgba(0, 0, 0, .65);
+}
+
+.editor-body {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.editor-body h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field small {
+  font-weight: 400;
+}
+
+.field input {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.field input:focus {
+  border-color: var(--green);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, .28);
+}
+
+.form-msg {
+  min-height: 18px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.form-msg.error {
+  color: #ff6b6b;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.form-actions .tool-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  max-width: calc(100% - 32px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 780px) {
+  .controls {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+
+  .controls .search {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .tool-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .toast {
+    transition: none;
+  }
+
+  .playlist-row.flash {
+    animation: none;
+    outline: 2px solid var(--green);
+  }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div class="top-line">
+      <div>
+        <h1>Playlists do Spotify</h1>
+        <p class="subtitle" id="count">95 playlists em ordem alfabética</p>
+      </div>
+
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="Buscar artista ou playlist..." autocomplete="off">
+        <button type="button" id="add-btn" class="tool-btn primary">+ Adicionar</button>
+        <button type="button" id="edit-btn" class="tool-btn" aria-pressed="false">Editar lista</button>
+        <button type="button" id="save-btn" class="tool-btn save" hidden="" title="0 alterações ainda não gravadas no arquivo">Salvar arquivo<span class="pill">0</span></button>
+      </div>
+    </div>
+
+    <nav id="alphabet" class="alphabet" aria-label="Índice alfabético"><a href="#letra-A">A</a><a href="#letra-B">B</a><a href="#letra-C">C</a><a href="#letra-D">D</a><a href="#letra-E">E</a><a href="#letra-F">F</a><a href="#letra-G">G</a><a href="#letra-I">I</a><a href="#letra-J">J</a><a href="#letra-K">K</a><a href="#letra-L">L</a><a href="#letra-M">M</a><a href="#letra-N">N</a><a href="#letra-O">O</a><a href="#letra-P">P</a><a href="#letra-Q">Q</a><a href="#letra-R">R</a><a href="#letra-S">S</a><a href="#letra-T">T</a><a href="#letra-U">U</a><a href="#letra-V">V</a><a href="#letra-Z">Z</a></nav>
+  </div>
+</header>
+
+<main>
+  <section id="playlist-list">
+    <article class="playlist-row" data-id="3mWLGUe2SbmbJ0JUcSUIQo" data-search="a-ha " id="letra-A">
+      <span class="number">01</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">A-ha</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar A-ha">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover A-ha">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3mWLGUe2SbmbJ0JUcSUIQo" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3mWLGUe2SbmbJ0JUcSUIQo" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5ESsJtF5VkyXhdNVuR1Okm" data-search="airbag ">
+      <span class="number">02</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Airbag</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Airbag">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Airbag">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5ESsJtF5VkyXhdNVuR1Okm" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5ESsJtF5VkyXhdNVuR1Okm" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6VR9NYqfOKELdgFYerTkXp" data-search="akon ">
+      <span class="number">03</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Akon</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Akon">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Akon">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6VR9NYqfOKELdgFYerTkXp" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6VR9NYqfOKELdgFYerTkXp" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6voIK61bBlterxClLYq3FQ" data-search="alejandro sanz ">
+      <span class="number">04</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Alejandro Sanz</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Alejandro Sanz">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Alejandro Sanz">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6voIK61bBlterxClLYq3FQ" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6voIK61bBlterxClLYq3FQ" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4ICyAK6BteE09qfZ8dbgYK" data-search="alejandro sanz en vivo">
+      <span class="number">05</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Alejandro Sanz</span>
+          <span class="badge">En Vivo</span>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Alejandro Sanz (En Vivo)">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Alejandro Sanz (En Vivo)">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4ICyAK6BteE09qfZ8dbgYK" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4ICyAK6BteE09qfZ8dbgYK" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6sVeiHUjEjxlI40R6jxnZx" data-search="andinas ">
+      <span class="number">06</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Andinas</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Andinas">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Andinas">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6sVeiHUjEjxlI40R6jxnZx" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6sVeiHUjEjxlI40R6jxnZx" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1X2lYBvB8WUdvIiF3cmite" data-search="andrea bocelli ">
+      <span class="number">07</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Andrea Bocelli</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Andrea Bocelli">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Andrea Bocelli">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1X2lYBvB8WUdvIiF3cmite" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1X2lYBvB8WUdvIiF3cmite" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4gZqQfRx2bFIME140SogJb" data-search="aqua ">
+      <span class="number">08</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Aqua</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Aqua">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Aqua">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4gZqQfRx2bFIME140SogJb" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4gZqQfRx2bFIME140SogJb" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0mx0LgfEyHX1HDPf5CEv4h" data-search="arabes ">
+      <span class="number">09</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Árabes</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Árabes">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Árabes">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0mx0LgfEyHX1HDPf5CEv4h" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0mx0LgfEyHX1HDPf5CEv4h" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2LORDzs0sq6Tlbc9sQN1OE" data-search="attaque 77 ">
+      <span class="number">10</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Attaque 77</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Attaque 77">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Attaque 77">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2LORDzs0sq6Tlbc9sQN1OE" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2LORDzs0sq6Tlbc9sQN1OE" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0Kxs6cvXo9czkQIQ2tZI2R" data-search="aventura ">
+      <span class="number">11</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Aventura</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Aventura">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Aventura">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0Kxs6cvXo9czkQIQ2tZI2R" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0Kxs6cvXo9czkQIQ2tZI2R" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="68ZQc7CCPyX2Q9j0v45F4f" data-search="avicii ">
+      <span class="number">12</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Avicii</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Avicii">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Avicii">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/68ZQc7CCPyX2Q9j0v45F4f" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:68ZQc7CCPyX2Q9j0v45F4f" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6YKYevjZ5bMfJPd0jlQj7V" data-search="avril lavigne ">
+      <span class="number">13</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Avril Lavigne</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Avril Lavigne">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Avril Lavigne">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6YKYevjZ5bMfJPd0jlQj7V" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6YKYevjZ5bMfJPd0jlQj7V" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="53bWfFzYQXwEsCNi4PusYf" data-search="bezerra da silva " id="letra-B">
+      <span class="number">14</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Bezerra da Silva</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Bezerra da Silva">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Bezerra da Silva">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/53bWfFzYQXwEsCNi4PusYf" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:53bWfFzYQXwEsCNi4PusYf" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6Y5Cun21Q9zJpCboVoeVjs" data-search="bon jovi ">
+      <span class="number">15</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Bon Jovi</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Bon Jovi">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Bon Jovi">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6Y5Cun21Q9zJpCboVoeVjs" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6Y5Cun21Q9zJpCboVoeVjs" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2E5urignGvLAPRRKUftMZ4" data-search="calle 13 " id="letra-C">
+      <span class="number">16</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Calle 13</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Calle 13">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Calle 13">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2E5urignGvLAPRRKUftMZ4" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2E5urignGvLAPRRKUftMZ4" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1THBKiFxMqgZ3pxOPqcJyD" data-search="callejeros ">
+      <span class="number">17</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Callejeros</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Callejeros">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Callejeros">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1THBKiFxMqgZ3pxOPqcJyD" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1THBKiFxMqgZ3pxOPqcJyD" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4SSQWlY5U5lqOGRgtg1i6T" data-search="capital inicial ">
+      <span class="number">18</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Capital Inicial</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Capital Inicial">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Capital Inicial">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4SSQWlY5U5lqOGRgtg1i6T" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4SSQWlY5U5lqOGRgtg1i6T" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5UwxSkDPMWZIt7uFSkMlh4" data-search="caribe / soca ">
+      <span class="number">19</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Caribe / Soca</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Caribe / Soca">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Caribe / Soca">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5UwxSkDPMWZIt7uFSkMlh4" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5UwxSkDPMWZIt7uFSkMlh4" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3kDxDxRZSaeuIb3TE9QxXR" data-search="catupecu machu ">
+      <span class="number">20</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Catupecu Machu</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Catupecu Machu">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Catupecu Machu">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3kDxDxRZSaeuIb3TE9QxXR" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3kDxDxRZSaeuIb3TE9QxXR" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2hkrQBreMHmoeJABMF1Uhh" data-search="cidade negra ">
+      <span class="number">21</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Cidade Negra</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Cidade Negra">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Cidade Negra">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2hkrQBreMHmoeJABMF1Uhh" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2hkrQBreMHmoeJABMF1Uhh" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7uy2V25xKFvYkP0sblZdEh" data-search="coldplay ">
+      <span class="number">22</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Coldplay</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Coldplay">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Coldplay">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7uy2V25xKFvYkP0sblZdEh" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7uy2V25xKFvYkP0sblZdEh" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4cGmU925aLZXrs3VNfnvyz" data-search="cpm 22 ">
+      <span class="number">23</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">CPM 22</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar CPM 22">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover CPM 22">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4cGmU925aLZXrs3VNfnvyz" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4cGmU925aLZXrs3VNfnvyz" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4twXehdV2740aRqqDHKyLE" data-search="cumbia ">
+      <span class="number">24</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Cumbia</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Cumbia">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Cumbia">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4twXehdV2740aRqqDHKyLE" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4twXehdV2740aRqqDHKyLE" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5DLbxwRgL9Xfw13eaWpZjF" data-search="dos minutos " id="letra-D">
+      <span class="number">25</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Dos Minutos</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Dos Minutos">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Dos Minutos">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5DLbxwRgL9Xfw13eaWpZjF" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5DLbxwRgL9Xfw13eaWpZjF" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0oEM8ibde0v0UL6Ao02Lj5" data-search="eletronicas " id="letra-E">
+      <span class="number">26</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Eletrônicas</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Eletrônicas">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Eletrônicas">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0oEM8ibde0v0UL6Ao02Lj5" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0oEM8ibde0v0UL6Ao02Lj5" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6tOWi8CQMpUnCVmrbry5Cq" data-search="falamansa " id="letra-F">
+      <span class="number">27</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Falamansa</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Falamansa">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Falamansa">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6tOWi8CQMpUnCVmrbry5Cq" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6tOWi8CQMpUnCVmrbry5Cq" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0ZprfDnWRHohmMIhLGFzn0" data-search="falcao ">
+      <span class="number">28</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Falcão</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Falcão">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Falcão">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0ZprfDnWRHohmMIhLGFzn0" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0ZprfDnWRHohmMIhLGFzn0" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6i7sKSndFJMVjSfWTK4ps9" data-search="funks antigos ">
+      <span class="number">29</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Funks Antigos</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Funks Antigos">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Funks Antigos">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6i7sKSndFJMVjSfWTK4ps9" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6i7sKSndFJMVjSfWTK4ps9" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2vmjYQWXrIxUcVEcdjeAhn" data-search="gaucho da fronteira " id="letra-G">
+      <span class="number">30</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Gaúcho da Fronteira</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Gaúcho da Fronteira">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Gaúcho da Fronteira">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2vmjYQWXrIxUcVEcdjeAhn" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2vmjYQWXrIxUcVEcdjeAhn" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5BQejrItbWBSIl2a2mJPna" data-search="gigi d'agostino ">
+      <span class="number">31</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Gigi D'Agostino</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Gigi D'Agostino">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Gigi D'Agostino">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5BQejrItbWBSIl2a2mJPna" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5BQejrItbWBSIl2a2mJPna" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3mElJDoCMEJo99APhfFLfo" data-search="green day ">
+      <span class="number">32</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Green Day</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Green Day">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Green Day">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3mElJDoCMEJo99APhfFLfo" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3mElJDoCMEJo99APhfFLfo" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3aLzASbkB5WG4KSrikG52H" data-search="guns n' roses ">
+      <span class="number">33</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Guns N' Roses</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Guns N' Roses">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Guns N' Roses">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3aLzASbkB5WG4KSrikG52H" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3aLzASbkB5WG4KSrikG52H" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1RAbucf7PYNndnSiujunDW" data-search="indie " id="letra-I">
+      <span class="number">34</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Indie</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Indie">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Indie">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1RAbucf7PYNndnSiujunDW" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1RAbucf7PYNndnSiujunDW" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="50Uak7s6TNz0Q9Siu4OUiB" data-search="italianas ">
+      <span class="number">35</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Italianas</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Italianas">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Italianas">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/50Uak7s6TNz0Q9Siu4OUiB" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:50Uak7s6TNz0Q9Siu4OUiB" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="35RMji3FrflUeHjataMSIx" data-search="italo dance ">
+      <span class="number">36</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Italo Dance</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Italo Dance">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Italo Dance">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/35RMji3FrflUeHjataMSIx" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:35RMji3FrflUeHjataMSIx" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="341RRx3jx72KQfT30z6Nn7" data-search="james blunt " id="letra-J">
+      <span class="number">37</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">James Blunt</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar James Blunt">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover James Blunt">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/341RRx3jx72KQfT30z6Nn7" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:341RRx3jx72KQfT30z6Nn7" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5FEtKVC3EQBtLCh4Wulc7j" data-search="khaled " id="letra-K">
+      <span class="number">38</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Khaled</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Khaled">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Khaled">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5FEtKVC3EQBtLCh4Wulc7j" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5FEtKVC3EQBtLCh4Wulc7j" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0vi5zCags05Ly1Q9m5Szzx" data-search="la vela puerca " id="letra-L">
+      <span class="number">39</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">La Vela Puerca</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar La Vela Puerca">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover La Vela Puerca">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0vi5zCags05Ly1Q9m5Szzx" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0vi5zCags05Ly1Q9m5Szzx" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7tUUUflIkwlo9ldMVuvJQb" data-search="lady gaga ">
+      <span class="number">40</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Lady Gaga</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Lady Gaga">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Lady Gaga">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7tUUUflIkwlo9ldMVuvJQb" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7tUUUflIkwlo9ldMVuvJQb" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3PMHJSC9zbYuLXsjNIc3d7" data-search="las pastillas del abuelo ">
+      <span class="number">41</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Las Pastillas del Abuelo</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Las Pastillas del Abuelo">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Las Pastillas del Abuelo">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3PMHJSC9zbYuLXsjNIc3d7" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3PMHJSC9zbYuLXsjNIc3d7" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5p5NpiZlSkAwjsMA3ZulVM" data-search="latino ">
+      <span class="number">42</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Latino</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Latino">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Latino">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5p5NpiZlSkAwjsMA3ZulVM" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5p5NpiZlSkAwjsMA3ZulVM" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4cUSP07v8aoSox14aU4KFx" data-search="laura pausini ">
+      <span class="number">43</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Laura Pausini</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Laura Pausini">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Laura Pausini">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4cUSP07v8aoSox14aU4KFx" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4cUSP07v8aoSox14aU4KFx" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2FumWyesO0J4dx6kdGJoyh" data-search="leandro &amp; leonardo ">
+      <span class="number">44</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Leandro &amp; Leonardo</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Leandro &amp; Leonardo">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Leandro &amp; Leonardo">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2FumWyesO0J4dx6kdGJoyh" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2FumWyesO0J4dx6kdGJoyh" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4yiI1PT4idSaJMTmhETFUt" data-search="leo rojas ">
+      <span class="number">45</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Leo Rojas</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Leo Rojas">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Leo Rojas">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4yiI1PT4idSaJMTmhETFUt" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4yiI1PT4idSaJMTmhETFUt" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7aLc3rl7ZAjPy8OScZA894" data-search="linkin park ">
+      <span class="number">46</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Linkin Park</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Linkin Park">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Linkin Park">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7aLc3rl7ZAjPy8OScZA894" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7aLc3rl7ZAjPy8OScZA894" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5TcV41vR8aDPxx0OabDCuD" data-search="linkin park live">
+      <span class="number">47</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Linkin Park</span>
+          <span class="badge">Live</span>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Linkin Park (Live)">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Linkin Park (Live)">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5TcV41vR8aDPxx0OabDCuD" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5TcV41vR8aDPxx0OabDCuD" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="35Ht2pdFOMOcJIQ8FhVc29" data-search="los redondos ">
+      <span class="number">48</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Los Redondos</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Los Redondos">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Los Redondos">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/35Ht2pdFOMOcJIQ8FhVc29" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:35Ht2pdFOMOcJIQ8FhVc29" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0ALaCSPY6kctg7GfdqYtaW" data-search="luiz gonzaga ">
+      <span class="number">49</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Luiz Gonzaga</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Luiz Gonzaga">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Luiz Gonzaga">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0ALaCSPY6kctg7GfdqYtaW" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0ALaCSPY6kctg7GfdqYtaW" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3VkXIGBsqPBxzPlO9kNAAo" data-search="mana " id="letra-M">
+      <span class="number">50</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Maná</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Maná">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Maná">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3VkXIGBsqPBxzPlO9kNAAo" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3VkXIGBsqPBxzPlO9kNAAo" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="09ekojBJlffwaMh23lXakB" data-search="maroon 5 ">
+      <span class="number">51</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Maroon 5</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Maroon 5">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Maroon 5">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/09ekojBJlffwaMh23lXakB" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:09ekojBJlffwaMh23lXakB" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3WFqpNjVxt0L8biMEJ7Wss" data-search="massacration ">
+      <span class="number">52</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Massacration</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Massacration">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Massacration">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3WFqpNjVxt0L8biMEJ7Wss" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3WFqpNjVxt0L8biMEJ7Wss" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="36nLj0sd8jbnpwaIEBh7Wc" data-search="michael jackson ">
+      <span class="number">53</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Michael Jackson</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Michael Jackson">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Michael Jackson">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/36nLj0sd8jbnpwaIEBh7Wc" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:36nLj0sd8jbnpwaIEBh7Wc" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1Gh3iECnIh84pNfmUyiqeE" data-search="nelly furtado " id="letra-N">
+      <span class="number">54</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Nelly Furtado</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Nelly Furtado">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Nelly Furtado">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1Gh3iECnIh84pNfmUyiqeE" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1Gh3iECnIh84pNfmUyiqeE" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7kiDW3L96rdqb3emhoWnBs" data-search="o rappa " id="letra-O">
+      <span class="number">55</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">O Rappa</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar O Rappa">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover O Rappa">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7kiDW3L96rdqb3emhoWnBs" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7kiDW3L96rdqb3emhoWnBs" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5ScyT4Z55EaJTUHCJGBgYb" data-search="o teatro magico ">
+      <span class="number">56</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">O Teatro Mágico</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar O Teatro Mágico">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover O Teatro Mágico">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5ScyT4Z55EaJTUHCJGBgYb" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5ScyT4Z55EaJTUHCJGBgYb" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7FfjuvfpJFHhJN3CWqO7Y3" data-search="o-zone ">
+      <span class="number">57</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">O-Zone</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar O-Zone">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover O-Zone">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7FfjuvfpJFHhJN3CWqO7Y3" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7FfjuvfpJFHhJN3CWqO7Y3" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5AlbPIQtu9fB8SZrhKbVLK" data-search="opera ">
+      <span class="number">58</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Ópera</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Ópera">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Ópera">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5AlbPIQtu9fB8SZrhKbVLK" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5AlbPIQtu9fB8SZrhKbVLK" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1NYqbfyi2qWeETHjFB828a" data-search="paramore " id="letra-P">
+      <span class="number">59</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Paramore</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Paramore">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Paramore">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1NYqbfyi2qWeETHjFB828a" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1NYqbfyi2qWeETHjFB828a" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="29mKkMDAd8ihtAKbEnL7zf" data-search="paramore ao vivo">
+      <span class="number">60</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Paramore</span>
+          <span class="badge">Ao Vivo</span>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Paramore (Ao Vivo)">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Paramore (Ao Vivo)">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/29mKkMDAd8ihtAKbEnL7zf" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:29mKkMDAd8ihtAKbEnL7zf" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5YWJJYqUVSFKb3nTPfEdJy" data-search="paula fernandes ">
+      <span class="number">61</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Paula Fernandes</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Paula Fernandes">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Paula Fernandes">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5YWJJYqUVSFKb3nTPfEdJy" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5YWJJYqUVSFKb3nTPfEdJy" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7mo51IgJ1o7EpvY2x1gC3v" data-search="pop e rock latino ">
+      <span class="number">62</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Pop e Rock Latino</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Pop e Rock Latino">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Pop e Rock Latino">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7mo51IgJ1o7EpvY2x1gC3v" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7mo51IgJ1o7EpvY2x1gC3v" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1BQ1anpadnSGlMx2Cn3Jg8" data-search="pop e rock nacional ">
+      <span class="number">63</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Pop e Rock Nacional</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Pop e Rock Nacional">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Pop e Rock Nacional">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1BQ1anpadnSGlMx2Cn3Jg8" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1BQ1anpadnSGlMx2Cn3Jg8" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2r7aX9HfHMwERPSNP6ZqU0" data-search="pop internacional ">
+      <span class="number">64</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Pop Internacional</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Pop Internacional">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Pop Internacional">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2r7aX9HfHMwERPSNP6ZqU0" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2r7aX9HfHMwERPSNP6ZqU0" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="34sMXvcODFU8VRsgVhZYAR" data-search="queen " id="letra-Q">
+      <span class="number">65</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Queen</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Queen">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Queen">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/34sMXvcODFU8VRsgVhZYAR" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:34sMXvcODFU8VRsgVhZYAR" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6DhixgmnWzs9oX5HCUCiQq" data-search="quim barreiros ">
+      <span class="number">66</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Quim Barreiros</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Quim Barreiros">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Quim Barreiros">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6DhixgmnWzs9oX5HCUCiQq" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6DhixgmnWzs9oX5HCUCiQq" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="06eFCVdjmjKIR8LkDkyjmt" data-search="rammstein " id="letra-R">
+      <span class="number">67</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Rammstein</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Rammstein">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Rammstein">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/06eFCVdjmjKIR8LkDkyjmt" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:06eFCVdjmjKIR8LkDkyjmt" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1LY0Fzf9h96Tq9gHwe2fL3" data-search="red hot chili peppers ">
+      <span class="number">68</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Red Hot Chili Peppers</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Red Hot Chili Peppers">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Red Hot Chili Peppers">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1LY0Fzf9h96Tq9gHwe2fL3" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1LY0Fzf9h96Tq9gHwe2fL3" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="38zurBJkkBMkBTQixa4lKd" data-search="ritchie 2 ">
+      <span class="number">69</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Ritchie 2</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Ritchie 2">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Ritchie 2">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/38zurBJkkBMkBTQixa4lKd" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:38zurBJkkBMkBTQixa4lKd" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4ZqrHL8iTVMmpJjIrJob4q" data-search="ritchie — original ">
+      <span class="number">70</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Ritchie — Original</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Ritchie — Original">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Ritchie — Original">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4ZqrHL8iTVMmpJjIrJob4q" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4ZqrHL8iTVMmpJjIrJob4q" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0zjdxO4kFgMNMIW1FKkfvT" data-search="robbie williams ">
+      <span class="number">71</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Robbie Williams</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Robbie Williams">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Robbie Williams">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0zjdxO4kFgMNMIW1FKkfvT" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0zjdxO4kFgMNMIW1FKkfvT" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="43uFJPFvikTRnv4CBef5tT" data-search="rock internacional ">
+      <span class="number">72</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Rock Internacional</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Rock Internacional">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Rock Internacional">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/43uFJPFvikTRnv4CBef5tT" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:43uFJPFvikTRnv4CBef5tT" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="21iyO8f3nwrbyAPijOclFF" data-search="rod stewart ">
+      <span class="number">73</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Rod Stewart</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Rod Stewart">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Rod Stewart">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/21iyO8f3nwrbyAPijOclFF" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:21iyO8f3nwrbyAPijOclFF" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="46uYFlu0BxBK4zblzlJgg6" data-search="roxette ">
+      <span class="number">74</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Roxette</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Roxette">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Roxette">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/46uYFlu0BxBK4zblzlJgg6" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:46uYFlu0BxBK4zblzlJgg6" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="21IFkYZn7lZPMhgqdsPYMM" data-search="rpm ">
+      <span class="number">75</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">RPM</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar RPM">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover RPM">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/21IFkYZn7lZPMhgqdsPYMM" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:21IFkYZn7lZPMhgqdsPYMM" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2hFT7TMDQKIJR54B6ClBnX" data-search="sambas de enredo " id="letra-S">
+      <span class="number">76</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Sambas de Enredo</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Sambas de Enredo">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Sambas de Enredo">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2hFT7TMDQKIJR54B6ClBnX" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2hFT7TMDQKIJR54B6ClBnX" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="00sPPRVy6srMVQPiw542GH" data-search="scorpions ">
+      <span class="number">77</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Scorpions</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Scorpions">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Scorpions">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/00sPPRVy6srMVQPiw542GH" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:00sPPRVy6srMVQPiw542GH" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3bjG4T4VyATjBFAlpNWFd0" data-search="seu jorge ">
+      <span class="number">78</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Seu Jorge</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Seu Jorge">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Seu Jorge">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3bjG4T4VyATjBFAlpNWFd0" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3bjG4T4VyATjBFAlpNWFd0" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7u6IpP2W5lzS1AEJX9FRQu" data-search="shakira ">
+      <span class="number">79</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Shakira</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Shakira">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Shakira">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7u6IpP2W5lzS1AEJX9FRQu" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7u6IpP2W5lzS1AEJX9FRQu" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="26NfgHeq1ITLF1VBERcQQ5" data-search="shakira en vivo">
+      <span class="number">80</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Shakira</span>
+          <span class="badge">En Vivo</span>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Shakira (En Vivo)">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Shakira (En Vivo)">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/26NfgHeq1ITLF1VBERcQQ5" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:26NfgHeq1ITLF1VBERcQQ5" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1hjFIf4Xjft35nSwSpTxbe" data-search="silvio santos ">
+      <span class="number">81</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Silvio Santos</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Silvio Santos">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Silvio Santos">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1hjFIf4Xjft35nSwSpTxbe" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1hjFIf4Xjft35nSwSpTxbe" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5bPBQLEU9OSWFRPmqE9zds" data-search="skank ">
+      <span class="number">82</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Skank</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Skank">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Skank">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5bPBQLEU9OSWFRPmqE9zds" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5bPBQLEU9OSWFRPmqE9zds" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0KRKdvkCKDPhZjvxo1r97f" data-search="soda stereo ">
+      <span class="number">83</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Soda Stereo</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Soda Stereo">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Soda Stereo">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0KRKdvkCKDPhZjvxo1r97f" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0KRKdvkCKDPhZjvxo1r97f" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="2Vq5ibY3SiS4XHsVai16pV" data-search="soda stereo en vivo">
+      <span class="number">84</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Soda Stereo</span>
+          <span class="badge">En Vivo</span>
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Soda Stereo (En Vivo)">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Soda Stereo (En Vivo)">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/2Vq5ibY3SiS4XHsVai16pV" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:2Vq5ibY3SiS4XHsVai16pV" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="27hoNh0OAikh3CIxYDT21W" data-search="stromae ">
+      <span class="number">85</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Stromae</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Stromae">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Stromae">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/27hoNh0OAikh3CIxYDT21W" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:27hoNh0OAikh3CIxYDT21W" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="37i9dQZF1CKMFBxUbxRIAg" data-search="suas musicas mais ouvidas de sempre ">
+      <span class="number">86</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Suas Músicas Mais Ouvidas de Sempre</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Suas Músicas Mais Ouvidas de Sempre">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Suas Músicas Mais Ouvidas de Sempre">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/37i9dQZF1CKMFBxUbxRIAg" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:37i9dQZF1CKMFBxUbxRIAg" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="0HFtz3rVOrrGJkFfF9U3u9" data-search="system of a down ">
+      <span class="number">87</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">System of a Down</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar System of a Down">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover System of a Down">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/0HFtz3rVOrrGJkFfF9U3u9" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:0HFtz3rVOrrGJkFfF9U3u9" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="7BNWAZ7Ye1XYteQaNnfzov" data-search="t.a.t.u. " id="letra-T">
+      <span class="number">88</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">t.A.T.u.</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar t.A.T.u.">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover t.A.T.u.">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/7BNWAZ7Ye1XYteQaNnfzov" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:7BNWAZ7Ye1XYteQaNnfzov" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3LHVn82uuXRmTTaWPisn4e" data-search="the black eyed peas ">
+      <span class="number">89</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">The Black Eyed Peas</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar The Black Eyed Peas">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover The Black Eyed Peas">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3LHVn82uuXRmTTaWPisn4e" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3LHVn82uuXRmTTaWPisn4e" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="5nmsK9vhpu2YpE2rtuLouC" data-search="timbaland ">
+      <span class="number">90</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Timbaland</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Timbaland">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Timbaland">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/5nmsK9vhpu2YpE2rtuLouC" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:5nmsK9vhpu2YpE2rtuLouC" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3oUmdK1pOKwT2tF8Tc1N1F" data-search="tony igy ">
+      <span class="number">91</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Tony Igy</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Tony Igy">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Tony Igy">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3oUmdK1pOKwT2tF8Tc1N1F" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3oUmdK1pOKwT2tF8Tc1N1F" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="1h4KUUVnOsrroOXarahXap" data-search="u2 " id="letra-U">
+      <span class="number">92</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">U2</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar U2">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover U2">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/1h4KUUVnOsrroOXarahXap" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:1h4KUUVnOsrroOXarahXap" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="6oZY5HxhwfovlfLem711sd" data-search="vetusta morla " id="letra-V">
+      <span class="number">93</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Vetusta Morla</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Vetusta Morla">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Vetusta Morla">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/6oZY5HxhwfovlfLem711sd" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:6oZY5HxhwfovlfLem711sd" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="4ekHWmau3M28Y3wH9Js7uw" data-search="victor &amp; leo ">
+      <span class="number">94</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Victor &amp; Leo</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Victor &amp; Leo">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Victor &amp; Leo">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/4ekHWmau3M28Y3wH9Js7uw" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:4ekHWmau3M28Y3wH9Js7uw" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>
+    <article class="playlist-row" data-id="3ivbBFTF1l6h01XalQ58Ot" data-search="ze ramalho " id="letra-Z">
+      <span class="number">95</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">Zé Ramalho</span>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar Zé Ramalho">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover Zé Ramalho">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/3ivbBFTF1l6h01XalQ58Ot" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:3ivbBFTF1l6h01XalQ58Ot" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article></section>
+
+  <div id="empty" class="empty" style="display: none;">Nenhuma playlist encontrada.</div>
+
+  <p class="note">
+    Pra adicionar: copie o link da playlist no Spotify e cole (Ctrl+V) em qualquer lugar desta página.
+    Depois clique em “Salvar arquivo” pra gravar a lista nova no .htm.<br>
+    “Abrir no Spotify” usa o navegador nesta mesma página.
+    “Abrir no aplicativo” tenta abrir o programa do Spotify instalado no computador ou celular.
+  </p>
+</main>
+
+<dialog id="editor" aria-labelledby="editor-title">
+  <form id="editor-form" class="editor-body" novalidate="">
+    <h2 id="editor-title">Adicionar playlist</h2>
+
+    <label class="field">
+      Link do Spotify
+      <input id="f-link" type="url" placeholder="https://open.spotify.com/playlist/..." autocomplete="off" spellcheck="false">
+    </label>
+
+    <label class="field">
+      Nome do artista
+      <input id="f-nome" type="text" autocomplete="off">
+    </label>
+
+    <label class="field">
+      <span>Etiqueta <small>(opcional, ex.: Ao Vivo)</small></span>
+      <input id="f-tag" type="text" autocomplete="off">
+    </label>
+
+    <p id="f-msg" class="form-msg" aria-live="polite"></p>
+
+    <div class="form-actions">
+      <button type="button" id="f-cancel" class="tool-btn">Cancelar</button>
+      <button type="submit" id="f-ok" class="tool-btn primary">Adicionar</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script id="dados" type="application/json">
+[
+  {"nome":"A-ha","id":"3mWLGUe2SbmbJ0JUcSUIQo"},
+  {"nome":"Airbag","id":"5ESsJtF5VkyXhdNVuR1Okm"},
+  {"nome":"Akon","id":"6VR9NYqfOKELdgFYerTkXp"},
+  {"nome":"Alejandro Sanz","id":"6voIK61bBlterxClLYq3FQ"},
+  {"nome":"Alejandro Sanz","tag":"En Vivo","id":"4ICyAK6BteE09qfZ8dbgYK"},
+  {"nome":"Andinas","id":"6sVeiHUjEjxlI40R6jxnZx"},
+  {"nome":"Andrea Bocelli","id":"1X2lYBvB8WUdvIiF3cmite"},
+  {"nome":"Aqua","id":"4gZqQfRx2bFIME140SogJb"},
+  {"nome":"Árabes","id":"0mx0LgfEyHX1HDPf5CEv4h"},
+  {"nome":"Attaque 77","id":"2LORDzs0sq6Tlbc9sQN1OE"},
+  {"nome":"Aventura","id":"0Kxs6cvXo9czkQIQ2tZI2R"},
+  {"nome":"Avicii","id":"68ZQc7CCPyX2Q9j0v45F4f"},
+  {"nome":"Avril Lavigne","id":"6YKYevjZ5bMfJPd0jlQj7V"},
+  {"nome":"Bezerra da Silva","id":"53bWfFzYQXwEsCNi4PusYf"},
+  {"nome":"Bon Jovi","id":"6Y5Cun21Q9zJpCboVoeVjs"},
+  {"nome":"Calle 13","id":"2E5urignGvLAPRRKUftMZ4"},
+  {"nome":"Callejeros","id":"1THBKiFxMqgZ3pxOPqcJyD"},
+  {"nome":"Capital Inicial","id":"4SSQWlY5U5lqOGRgtg1i6T"},
+  {"nome":"Caribe / Soca","id":"5UwxSkDPMWZIt7uFSkMlh4"},
+  {"nome":"Catupecu Machu","id":"3kDxDxRZSaeuIb3TE9QxXR"},
+  {"nome":"Cidade Negra","id":"2hkrQBreMHmoeJABMF1Uhh"},
+  {"nome":"Coldplay","id":"7uy2V25xKFvYkP0sblZdEh"},
+  {"nome":"CPM 22","id":"4cGmU925aLZXrs3VNfnvyz"},
+  {"nome":"Cumbia","id":"4twXehdV2740aRqqDHKyLE"},
+  {"nome":"Dos Minutos","id":"5DLbxwRgL9Xfw13eaWpZjF"},
+  {"nome":"Eletrônicas","id":"0oEM8ibde0v0UL6Ao02Lj5"},
+  {"nome":"Falamansa","id":"6tOWi8CQMpUnCVmrbry5Cq"},
+  {"nome":"Falcão","id":"0ZprfDnWRHohmMIhLGFzn0"},
+  {"nome":"Funks Antigos","id":"6i7sKSndFJMVjSfWTK4ps9"},
+  {"nome":"Gaúcho da Fronteira","id":"2vmjYQWXrIxUcVEcdjeAhn"},
+  {"nome":"Gigi D'Agostino","id":"5BQejrItbWBSIl2a2mJPna"},
+  {"nome":"Green Day","id":"3mElJDoCMEJo99APhfFLfo"},
+  {"nome":"Guns N' Roses","id":"3aLzASbkB5WG4KSrikG52H"},
+  {"nome":"Indie","id":"1RAbucf7PYNndnSiujunDW"},
+  {"nome":"Italianas","id":"50Uak7s6TNz0Q9Siu4OUiB"},
+  {"nome":"Italo Dance","id":"35RMji3FrflUeHjataMSIx"},
+  {"nome":"James Blunt","id":"341RRx3jx72KQfT30z6Nn7"},
+  {"nome":"Khaled","id":"5FEtKVC3EQBtLCh4Wulc7j"},
+  {"nome":"La Vela Puerca","id":"0vi5zCags05Ly1Q9m5Szzx"},
+  {"nome":"Lady Gaga","id":"7tUUUflIkwlo9ldMVuvJQb"},
+  {"nome":"Las Pastillas del Abuelo","id":"3PMHJSC9zbYuLXsjNIc3d7"},
+  {"nome":"Latino","id":"5p5NpiZlSkAwjsMA3ZulVM"},
+  {"nome":"Laura Pausini","id":"4cUSP07v8aoSox14aU4KFx"},
+  {"nome":"Leandro & Leonardo","id":"2FumWyesO0J4dx6kdGJoyh"},
+  {"nome":"Leo Rojas","id":"4yiI1PT4idSaJMTmhETFUt"},
+  {"nome":"Linkin Park","id":"7aLc3rl7ZAjPy8OScZA894"},
+  {"nome":"Linkin Park","tag":"Live","id":"5TcV41vR8aDPxx0OabDCuD"},
+  {"nome":"Los Redondos","id":"35Ht2pdFOMOcJIQ8FhVc29"},
+  {"nome":"Luiz Gonzaga","id":"0ALaCSPY6kctg7GfdqYtaW"},
+  {"nome":"Maná","id":"3VkXIGBsqPBxzPlO9kNAAo"},
+  {"nome":"Maroon 5","id":"09ekojBJlffwaMh23lXakB"},
+  {"nome":"Massacration","id":"3WFqpNjVxt0L8biMEJ7Wss"},
+  {"nome":"Michael Jackson","id":"36nLj0sd8jbnpwaIEBh7Wc"},
+  {"nome":"Nelly Furtado","id":"1Gh3iECnIh84pNfmUyiqeE"},
+  {"nome":"O Rappa","id":"7kiDW3L96rdqb3emhoWnBs"},
+  {"nome":"O Teatro Mágico","id":"5ScyT4Z55EaJTUHCJGBgYb"},
+  {"nome":"O-Zone","id":"7FfjuvfpJFHhJN3CWqO7Y3"},
+  {"nome":"Ópera","id":"5AlbPIQtu9fB8SZrhKbVLK"},
+  {"nome":"Paramore","id":"1NYqbfyi2qWeETHjFB828a"},
+  {"nome":"Paramore","tag":"Ao Vivo","id":"29mKkMDAd8ihtAKbEnL7zf"},
+  {"nome":"Paula Fernandes","id":"5YWJJYqUVSFKb3nTPfEdJy"},
+  {"nome":"Pop e Rock Latino","id":"7mo51IgJ1o7EpvY2x1gC3v"},
+  {"nome":"Pop e Rock Nacional","id":"1BQ1anpadnSGlMx2Cn3Jg8"},
+  {"nome":"Pop Internacional","id":"2r7aX9HfHMwERPSNP6ZqU0"},
+  {"nome":"Queen","id":"34sMXvcODFU8VRsgVhZYAR"},
+  {"nome":"Quim Barreiros","id":"6DhixgmnWzs9oX5HCUCiQq"},
+  {"nome":"Rammstein","id":"06eFCVdjmjKIR8LkDkyjmt"},
+  {"nome":"Red Hot Chili Peppers","id":"1LY0Fzf9h96Tq9gHwe2fL3"},
+  {"nome":"Ritchie 2","id":"38zurBJkkBMkBTQixa4lKd"},
+  {"nome":"Ritchie — Original","id":"4ZqrHL8iTVMmpJjIrJob4q"},
+  {"nome":"Robbie Williams","id":"0zjdxO4kFgMNMIW1FKkfvT"},
+  {"nome":"Rock Internacional","id":"43uFJPFvikTRnv4CBef5tT"},
+  {"nome":"Rod Stewart","id":"21iyO8f3nwrbyAPijOclFF"},
+  {"nome":"Roxette","id":"46uYFlu0BxBK4zblzlJgg6"},
+  {"nome":"RPM","id":"21IFkYZn7lZPMhgqdsPYMM"},
+  {"nome":"Sambas de Enredo","id":"2hFT7TMDQKIJR54B6ClBnX"},
+  {"nome":"Scorpions","id":"00sPPRVy6srMVQPiw542GH"},
+  {"nome":"Seu Jorge","id":"3bjG4T4VyATjBFAlpNWFd0"},
+  {"nome":"Shakira","id":"7u6IpP2W5lzS1AEJX9FRQu"},
+  {"nome":"Shakira","tag":"En Vivo","id":"26NfgHeq1ITLF1VBERcQQ5"},
+  {"nome":"Silvio Santos","id":"1hjFIf4Xjft35nSwSpTxbe"},
+  {"nome":"Skank","id":"5bPBQLEU9OSWFRPmqE9zds"},
+  {"nome":"Soda Stereo","id":"0KRKdvkCKDPhZjvxo1r97f"},
+  {"nome":"Soda Stereo","tag":"En Vivo","id":"2Vq5ibY3SiS4XHsVai16pV"},
+  {"nome":"Stromae","id":"27hoNh0OAikh3CIxYDT21W"},
+  {"nome":"Suas Músicas Mais Ouvidas de Sempre","id":"37i9dQZF1CKMFBxUbxRIAg"},
+  {"nome":"System of a Down","id":"0HFtz3rVOrrGJkFfF9U3u9"},
+  {"nome":"t.A.T.u.","id":"7BNWAZ7Ye1XYteQaNnfzov"},
+  {"nome":"The Black Eyed Peas","id":"3LHVn82uuXRmTTaWPisn4e"},
+  {"nome":"Timbaland","id":"5nmsK9vhpu2YpE2rtuLouC"},
+  {"nome":"Tony Igy","id":"3oUmdK1pOKwT2tF8Tc1N1F"},
+  {"nome":"U2","id":"1h4KUUVnOsrroOXarahXap"},
+  {"nome":"Vetusta Morla","id":"6oZY5HxhwfovlfLem711sd"},
+  {"nome":"Victor & Leo","id":"4ekHWmau3M28Y3wH9Js7uw"},
+  {"nome":"Zé Ramalho","id":"3ivbBFTF1l6h01XalQ58Ot"}
+]
+</script>
+
+<script id="app">
+(() => {
+  "use strict";
+
+  const $ = s => document.querySelector(s);
+  const STORE_KEY = "playlistsSpotify:v1";
+
+  const listEl = $("#playlist-list");
+  const navEl = $("#alphabet");
+  const countEl = $("#count");
+  const emptyEl = $("#empty");
+  const search = $("#search");
+  const addBtn = $("#add-btn");
+  const editBtn = $("#edit-btn");
+  const saveBtn = $("#save-btn");
+  const editor = $("#editor");
+  const form = $("#editor-form");
+  const fTitle = $("#editor-title");
+  const fLink = $("#f-link");
+  const fNome = $("#f-nome");
+  const fTag = $("#f-tag");
+  const fMsg = $("#f-msg");
+  const fOk = $("#f-ok");
+  const toastEl = $("#toast");
+
+  const norm = v => String(v).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const parseId = t => { const m = String(t || "").match(/playlist[\/:]([A-Za-z0-9]{22})/); return m ? m[1] : null; };
+  const valid = p => p && typeof p.nome === "string" && p.nome.trim() && /^[A-Za-z0-9]{22}$/.test(p.id);
+  const clean = p => { const o = { nome: p.nome.trim() }; if (p.tag && String(p.tag).trim()) o.tag = String(p.tag).trim(); o.id = p.id; return o; };
+  const label = p => p.tag ? `${p.nome} (${p.tag})` : p.nome;
+
+  function cmp(a, b) {
+    const x = norm(a.nome), y = norm(b.nome);
+    if (x !== y) return x < y ? -1 : 1;
+    const p = norm(a.tag || ""), q = norm(b.tag || "");
+    return p < q ? -1 : p > q ? 1 : 0;
+  }
+
+  function hash(arr) {
+    const s = JSON.stringify(arr.map(clean).sort((a, b) => (a.id < b.id ? -1 : 1)));
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  function diffCount(a, b) {
+    const A = new Map(a.map(p => [p.id, p]));
+    const B = new Map(b.map(p => [p.id, p]));
+    let n = 0;
+    for (const [id, p] of B) {
+      const o = A.get(id);
+      if (!o || o.nome !== p.nome || (o.tag || "") !== (p.tag || "")) n++;
+    }
+    for (const id of A.keys()) if (!B.has(id)) n++;
+    return n;
+  }
+
+  // ---- dados: o que está gravado no arquivo + alterações guardadas neste navegador
+  const fileData = JSON.parse($("#dados").textContent).filter(valid).map(clean);
+  const baseHash = hash(fileData);
+  let reference = fileData.map(p => ({ ...p }));
+  let list = fileData.map(p => ({ ...p }));
+  let fileHandle = null;
+  let editingId = null;
+
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+    if (s && s.base === baseHash && Array.isArray(s.list)) list = s.list.filter(valid).map(clean);
+  } catch (e) { /* sem localStorage: segue só com o arquivo */ }
+
+  function persist() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ base: baseHash, list })); } catch (e) {}
+  }
+
+  // ---- lista
+  function letterOf(nome) {
+    const c = norm(nome).replace(/[^a-z0-9]/g, "")[0] || "#";
+    return /[a-z]/.test(c) ? c.toUpperCase() : "#";
+  }
+
+  function render() {
+    list.sort(cmp);
+    const letters = [];
+    const width = Math.max(2, String(list.length).length);
+
+    listEl.innerHTML = list.map((p, i) => {
+      const L = letterOf(p.nome);
+      let anchor = "";
+      if (letters[letters.length - 1] !== L) {
+        letters.push(L);
+        anchor = ` id="letra-${L === "#" ? "0" : L}"`;
+      }
+      return `
+    <article class="playlist-row" data-id="${p.id}" data-search="${esc(norm(p.nome + " " + (p.tag || "")))}"${anchor}>
+      <span class="number">${String(i + 1).padStart(width, "0")}</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">${esc(p.nome)}</span>
+          ${p.tag ? `<span class="badge">${esc(p.tag)}</span>` : ""}
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar ${esc(label(p))}">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover ${esc(label(p))}">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/${p.id}" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:${p.id}" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>`;
+    }).join("");
+
+    navEl.innerHTML = letters.map(L => `<a href="#letra-${L === "#" ? "0" : L}">${L}</a>`).join("");
+    countEl.textContent = `${list.length} playlists em ordem alfabética`;
+    applyFilter();
+    updateSave();
+  }
+
+  function applyFilter() {
+    const term = norm(search.value.trim());
+    let visible = 0;
+    for (const row of listEl.children) {
+      const match = row.dataset.search.includes(term);
+      row.style.display = match ? "" : "none";
+      if (match) visible++;
+    }
+    emptyEl.style.display = visible ? "none" : "block";
+  }
+
+  function updateSave() {
+    const n = diffCount(reference, list);
+    saveBtn.hidden = n === 0;
+    saveBtn.innerHTML = `Salvar arquivo<span class="pill">${n}</span>`;
+    saveBtn.title = n === 1 ? "1 alteração ainda não gravada no arquivo" : `${n} alterações ainda não gravadas no arquivo`;
+  }
+
+  function flash(id) {
+    const row = listEl.querySelector(`[data-id="${id}"]`);
+    if (!row) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    row.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    row.classList.remove("flash");
+    void row.offsetWidth;
+    row.classList.add("flash");
+    setTimeout(() => row.classList.remove("flash"), 2000);
+  }
+
+  let toastTimer;
+  function toast(msg, ms = 2600) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), ms);
+  }
+
+  // ---- janela de adicionar / editar
+  let fetchCtl = null;
+  let autoNome = false;
+
+  function setMsg(text, isError = false) {
+    fMsg.textContent = text;
+    fMsg.classList.toggle("error", isError);
+    fOk.disabled = isError;
+  }
+
+  function openEditor(p, link = "") {
+    editingId = p ? p.id : null;
+    fTitle.textContent = p ? "Editar playlist" : "Adicionar playlist";
+    fOk.textContent = p ? "Salvar alterações" : "Adicionar";
+    fLink.value = p ? `https://open.spotify.com/playlist/${p.id}` : link;
+    fNome.value = p ? p.nome : "";
+    fTag.value = p ? (p.tag || "") : "";
+    autoNome = !p;
+    setMsg("");
+    editor.showModal();
+    if (p || link) fNome.focus(); else fLink.focus();
+    if (!p && link) onLink();
+  }
+
+  async function onLink() {
+    if (fetchCtl) { fetchCtl.abort(); fetchCtl = null; }
+    const raw = fLink.value.trim();
+    if (!raw) { setMsg(""); return; }
+
+    const id = parseId(raw);
+    if (!id) { setMsg("Esse link não é de uma playlist do Spotify.", true); return; }
+
+    const dup = list.find(p => p.id === id && p.id !== editingId);
+    if (dup) { setMsg(`Essa playlist já está na lista como “${label(dup)}”.`, true); return; }
+
+    if (!autoNome && fNome.value.trim()) { setMsg(""); return; }
+
+    setMsg("Buscando o nome da playlist…");
+    const ctl = fetchCtl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 6000);
+    try {
+      const url = "https://open.spotify.com/oembed?url=" + encodeURIComponent("https://open.spotify.com/playlist/" + id);
+      const r = await fetch(url, { signal: ctl.signal });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      if (ctl !== fetchCtl) return;
+      const title = String(j.title || "").replace(/^this is\s+/i, "").trim();
+      if (title && (autoNome || !fNome.value.trim())) {
+        fNome.value = title;
+        if (document.activeElement !== fTag) { fNome.focus(); fNome.select(); }
+        setMsg("Nome puxado do Spotify. Ajuste se quiser e aperte Enter.");
+      } else {
+        setMsg("Digite o nome do artista.");
+      }
+    } catch (e) {
+      if (ctl === fetchCtl) {
+        setMsg("Não deu pra puxar o nome sozinho. Digite o nome do artista.");
+        if (document.activeElement !== fTag) fNome.focus();
+      }
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  fLink.addEventListener("input", onLink);
+  fNome.addEventListener("input", () => { autoNome = false; if (!fMsg.classList.contains("error")) setMsg(""); });
+  $("#f-cancel").addEventListener("click", () => editor.close());
+  editor.addEventListener("close", () => { if (fetchCtl) { fetchCtl.abort(); fetchCtl = null; } });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const id = parseId(fLink.value);
+    const nome = fNome.value.trim();
+    if (!id) { setMsg("Cole o link de uma playlist do Spotify.", true); fLink.focus(); return; }
+    const dup = list.find(p => p.id === id && p.id !== editingId);
+    if (dup) { setMsg(`Essa playlist já está na lista como “${label(dup)}”.`, true); return; }
+    if (!nome) { setMsg("Digite o nome do artista."); fNome.focus(); return; }
+
+    const item = clean({ nome, tag: fTag.value, id });
+    const wasEditing = editingId;
+    if (wasEditing) list[list.findIndex(p => p.id === wasEditing)] = item;
+    else list.push(item);
+
+    editor.close();
+    persist();
+    search.value = "";
+    render();
+    flash(id);
+    toast(wasEditing ? `“${label(item)}” atualizada` : `“${label(item)}” adicionada`);
+  });
+
+  // colar um link de playlist em qualquer lugar da página abre a janela já preenchida
+  document.addEventListener("paste", e => {
+    if (editor.open) return;
+    const text = (e.clipboardData && e.clipboardData.getData("text")) || "";
+    if (!parseId(text)) return;
+    e.preventDefault();
+    openEditor(null, text.trim());
+  });
+
+  addBtn.addEventListener("click", () => openEditor(null));
+
+  editBtn.addEventListener("click", () => {
+    const on = document.body.classList.toggle("editing");
+    editBtn.textContent = on ? "Concluir" : "Editar lista";
+    editBtn.setAttribute("aria-pressed", String(on));
+  });
+
+  listEl.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const id = btn.closest(".playlist-row").dataset.id;
+    const p = list.find(x => x.id === id);
+    if (!p) return;
+    if (btn.dataset.act === "edit") {
+      openEditor(p);
+    } else if (confirm(`Remover “${label(p)}” da lista?`)) {
+      list = list.filter(x => x.id !== id);
+      persist();
+      render();
+      toast(`“${label(p)}” removida`);
+    }
+  });
+
+  search.addEventListener("input", applyFilter);
+
+  // ---- salvar: gera o .htm completo com a lista nova dentro
+  function fileName() {
+    try {
+      const n = decodeURIComponent(location.pathname.split("/").pop() || "");
+      if (/\.html?$/i.test(n)) return n;
+    } catch (e) {}
+    return "Playlists do Spotify.htm";
+  }
+
+  function serialize() {
+    const rows = [...list].sort(cmp).map(p => "  " + JSON.stringify(clean(p)).replace(/</g, "\\u003c"));
+    return "\n[\n" + rows.join(",\n") + "\n]\n";
+  }
+
+  function buildHTML() {
+    const root = document.documentElement.cloneNode(true);
+    const head = root.querySelector("head");
+    const body = root.querySelector("body");
+
+    // tira qualquer coisa que extensão do navegador tenha injetado na página
+    for (const a of [...root.attributes]) root.removeAttribute(a.name);
+    root.setAttribute("lang", "pt-BR");
+    for (const el of [...root.children]) if (el !== head && el !== body) el.remove();
+    for (const el of [...head.children]) if (!el.matches("meta, title, style#app-style")) el.remove();
+    for (const el of [...body.children]) if (!el.matches("header, main, dialog#editor, #toast, script#dados, script#app")) el.remove();
+    for (const a of [...body.attributes]) body.removeAttribute(a.name);
+
+    root.querySelector("#playlist-list").innerHTML = "";
+    root.querySelector("#alphabet").innerHTML = "";
+    root.querySelector("#empty").removeAttribute("style");
+    root.querySelector("#editor").removeAttribute("open");
+    root.querySelector("#f-ok").removeAttribute("disabled");
+    root.querySelector("#f-msg").textContent = "";
+    root.querySelector("#f-msg").className = "form-msg";
+    root.querySelector("#toast").className = "toast";
+    root.querySelector("#toast").textContent = "";
+    root.querySelector("#save-btn").setAttribute("hidden", "");
+    root.querySelector("#save-btn").textContent = "Salvar arquivo";
+    root.querySelector("#save-btn").removeAttribute("title");
+    root.querySelector("#edit-btn").textContent = "Editar lista";
+    root.querySelector("#edit-btn").setAttribute("aria-pressed", "false");
+    root.querySelector("#dados").textContent = serialize();
+
+    return "<!DOCTYPE html>\n" + root.outerHTML + "\n";
+  }
+
+  function markSaved(msg, ms) {
+    reference = list.map(p => ({ ...p }));
+    updateSave();
+    toast(msg, ms);
+  }
+
+  saveBtn.addEventListener("click", async () => {
+    const text = buildHTML();
+    const name = fileName();
+
+    // Chrome / Edge: grava direto por cima do arquivo escolhido
+    if (window.showSaveFilePicker) {
+      try {
+        if (!fileHandle) {
+          fileHandle = await window.showSaveFilePicker({
+            suggestedName: name,
+            types: [{ description: "Página HTML", accept: { "text/html": [".htm", ".html"] } }]
+          });
+        }
+        const w = await fileHandle.createWritable();
+        await w.write(text);
+        await w.close();
+        markSaved("Arquivo salvo");
+        return;
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+        fileHandle = null;
+      }
+    }
+
+    // Firefox e outros: baixa o arquivo atualizado
+    const url = URL.createObjectURL(new Blob([text], { type: "text/html;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    markSaved("Arquivo baixado. Troque o antigo por ele.", 4500);
+  });
+
+  render();
+})();
+</script>
+
+
+</body></html>

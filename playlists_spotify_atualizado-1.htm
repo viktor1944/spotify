@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playlists do Spotify — Índice Alfabético</title>
+<style id="app-style">
+:root {
+  --background: #121212;
+  --surface: #181818;
+  --surface-hover: #222;
+  --border: #2c2c2c;
+  --text: #fff;
+  --muted: #aaa;
+  --green: #1ed760;
+  --green-dark: #169c46;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 190px;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(18, 18, 18, .97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+.header-inner,
+main {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.header-inner {
+  padding: 18px 18px 12px;
+}
+
+.top-line {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: clamp(25px, 4vw, 38px);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.search {
+  width: min(360px, 100%);
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+  outline: none;
+}
+
+.search:focus {
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, .28);
+}
+
+.alphabet {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 1px 0 6px;
+  scrollbar-width: thin;
+}
+
+.alphabet a {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 9px;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: #202020;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.alphabet a:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+main {
+  padding: 12px 18px 40px;
+}
+
+.playlist-row {
+  display: grid;
+  grid-template-columns: 44px minmax(180px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 62px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.playlist-row:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.playlist-row:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+
+.playlist-row:hover {
+  background: var(--surface-hover);
+}
+
+.number {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.playlist-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid rgba(30, 215, 96, .55);
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(30, 215, 96, .08);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.button.web {
+  border: 1px solid #4b4b4b;
+  color: #fff;
+  background: #292929;
+}
+
+.button.web:hover {
+  background: #383838;
+}
+
+.button.app {
+  color: #061b0d;
+  background: var(--green);
+}
+
+.button.app:hover {
+  background: #35e575;
+}
+
+.empty {
+  display: none;
+  padding: 42px 10px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.note {
+  margin: 14px 2px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 780px) {
+  html {
+    scroll-padding-top: 235px;
+  }
+
+  .top-line {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .playlist-row {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 8px;
+    padding: 11px 9px;
+  }
+
+  .actions {
+    grid-column: 2;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    min-height: 35px;
+    padding: 7px 10px;
+  }
+}
+
+/* ===== Adicionar / editar / salvar ===== */
+[hidden] {
+  display: none !important;
+}
+
+.controls {
+  display: flex;
+  flex: 0 1 640px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.controls .search {
+  flex: 1 1 200px;
+  width: auto;
+  max-width: 360px;
+}
+
+.tool-btn {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #4b4b4b;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  font: 700 14px Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tool-btn:hover {
+  background: #383838;
+}
+
+.tool-btn.primary {
+  border-color: transparent;
+  background: var(--green);
+  color: #061b0d;
+}
+
+.tool-btn.primary:hover {
+  background: #35e575;
+}
+
+.tool-btn.save {
+  border-color: var(--green);
+  background: rgba(30, 215, 96, .1);
+  color: var(--green);
+}
+
+.tool-btn.save:hover {
+  background: rgba(30, 215, 96, .2);
+}
+
+.tool-btn[aria-pressed="true"] {
+  border-color: #fff;
+}
+
+.pill {
+  display: inline-block;
+  min-width: 20px;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #061b0d;
+  font-size: 12px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.row-tools {
+  display: none;
+  gap: 6px;
+}
+
+body.editing .row-tools {
+  display: inline-flex;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #4b4b4b;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: #383838;
+}
+
+.icon-btn.danger:hover {
+  border-color: #e5484d;
+  color: #ff6b6b;
+}
+
+@keyframes row-flash {
+  from { background: rgba(30, 215, 96, .25); }
+  to   { background: var(--surface); }
+}
+
+.playlist-row.flash {
+  animation: row-flash 1.8s ease-out;
+}
+
+#editor {
+  width: min(440px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+#editor::backdrop {
+  background: rgba(0, 0, 0, .65);
+}
+
+.editor-body {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.editor-body h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field small {
+  font-weight: 400;
+}
+
+.field input {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.field input:focus {
+  border-color: var(--green);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 215, 96, .28);
+}
+
+.form-msg {
+  min-height: 18px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.form-msg.error {
+  color: #ff6b6b;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.form-actions .tool-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  max-width: calc(100% - 32px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 16px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 780px) {
+  .controls {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+
+  .controls .search {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .tool-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .toast {
+    transition: none;
+  }
+
+  .playlist-row.flash {
+    animation: none;
+    outline: 2px solid var(--green);
+  }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div class="top-line">
+      <div>
+        <h1>Playlists do Spotify</h1>
+        <p class="subtitle" id="count">96 playlists em ordem alfabética</p>
+      </div>
+
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="Buscar artista ou playlist..." autocomplete="off">
+        <button type="button" id="add-btn" class="tool-btn primary">+ Adicionar</button>
+        <button type="button" id="edit-btn" class="tool-btn" aria-pressed="false">Editar lista</button>
+        <button type="button" id="save-btn" class="tool-btn save" hidden="">Salvar arquivo</button>
+      </div>
+    </div>
+
+    <nav id="alphabet" class="alphabet" aria-label="Índice alfabético"></nav>
+  </div>
+</header>
+
+<main>
+  <section id="playlist-list"></section>
+
+  <div id="empty" class="empty">Nenhuma playlist encontrada.</div>
+
+  <p class="note">
+    Pra adicionar: copie o link da playlist no Spotify e cole (Ctrl+V) em qualquer lugar desta página.
+    Depois clique em “Salvar arquivo” pra gravar a lista nova no .htm.<br>
+    “Abrir no Spotify” usa o navegador nesta mesma página.
+    “Abrir no aplicativo” tenta abrir o programa do Spotify instalado no computador ou celular.
+  </p>
+</main>
+
+<dialog id="editor" aria-labelledby="editor-title">
+  <form id="editor-form" class="editor-body" novalidate="">
+    <h2 id="editor-title">Adicionar playlist</h2>
+
+    <label class="field">
+      Link do Spotify
+      <input id="f-link" type="url" placeholder="https://open.spotify.com/playlist/..." autocomplete="off" spellcheck="false">
+    </label>
+
+    <label class="field">
+      Nome do artista
+      <input id="f-nome" type="text" autocomplete="off">
+    </label>
+
+    <label class="field">
+      <span>Etiqueta <small>(opcional, ex.: Ao Vivo)</small></span>
+      <input id="f-tag" type="text" autocomplete="off">
+    </label>
+
+    <p id="f-msg" class="form-msg" aria-live="polite"></p>
+
+    <div class="form-actions">
+      <button type="button" id="f-cancel" class="tool-btn">Cancelar</button>
+      <button type="submit" id="f-ok" class="tool-btn primary">Adicionar</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script id="dados" type="application/json">
+[
+  {"nome":"A-ha","id":"3mWLGUe2SbmbJ0JUcSUIQo"},
+  {"nome":"Airbag","id":"5ESsJtF5VkyXhdNVuR1Okm"},
+  {"nome":"Akon","id":"6VR9NYqfOKELdgFYerTkXp"},
+  {"nome":"Alejandro Sanz","id":"6voIK61bBlterxClLYq3FQ"},
+  {"nome":"Alejandro Sanz","tag":"En Vivo","id":"4ICyAK6BteE09qfZ8dbgYK"},
+  {"nome":"Andinas","id":"6sVeiHUjEjxlI40R6jxnZx"},
+  {"nome":"Andrea Bocelli","id":"1X2lYBvB8WUdvIiF3cmite"},
+  {"nome":"Aqua","id":"4gZqQfRx2bFIME140SogJb"},
+  {"nome":"Árabes","id":"0mx0LgfEyHX1HDPf5CEv4h"},
+  {"nome":"Attaque 77","id":"2LORDzs0sq6Tlbc9sQN1OE"},
+  {"nome":"Aventura","id":"0Kxs6cvXo9czkQIQ2tZI2R"},
+  {"nome":"Avicii","id":"68ZQc7CCPyX2Q9j0v45F4f"},
+  {"nome":"Avril Lavigne","id":"6YKYevjZ5bMfJPd0jlQj7V"},
+  {"nome":"Bezerra da Silva","id":"53bWfFzYQXwEsCNi4PusYf"},
+  {"nome":"Bon Jovi","id":"6Y5Cun21Q9zJpCboVoeVjs"},
+  {"nome":"Calle 13","id":"2E5urignGvLAPRRKUftMZ4"},
+  {"nome":"Callejeros","id":"1THBKiFxMqgZ3pxOPqcJyD"},
+  {"nome":"Capital Inicial","id":"4SSQWlY5U5lqOGRgtg1i6T"},
+  {"nome":"Caribe / Soca","id":"5UwxSkDPMWZIt7uFSkMlh4"},
+  {"nome":"Catupecu Machu","id":"3kDxDxRZSaeuIb3TE9QxXR"},
+  {"nome":"Cidade Negra","id":"2hkrQBreMHmoeJABMF1Uhh"},
+  {"nome":"Coldplay","id":"7uy2V25xKFvYkP0sblZdEh"},
+  {"nome":"CPM 22","id":"4cGmU925aLZXrs3VNfnvyz"},
+  {"nome":"Cumbia","id":"4twXehdV2740aRqqDHKyLE"},
+  {"nome":"Dos Minutos","id":"5DLbxwRgL9Xfw13eaWpZjF"},
+  {"nome":"Eletrônicas","id":"0oEM8ibde0v0UL6Ao02Lj5"},
+  {"nome":"Falamansa","id":"6tOWi8CQMpUnCVmrbry5Cq"},
+  {"nome":"Falcão","id":"0ZprfDnWRHohmMIhLGFzn0"},
+  {"nome":"Funks Antigos","id":"6i7sKSndFJMVjSfWTK4ps9"},
+  {"nome":"Gaúcho da Fronteira","id":"2vmjYQWXrIxUcVEcdjeAhn"},
+  {"nome":"Gigi D'Agostino","id":"5BQejrItbWBSIl2a2mJPna"},
+  {"nome":"Green Day","id":"3mElJDoCMEJo99APhfFLfo"},
+  {"nome":"Guns N' Roses","id":"3aLzASbkB5WG4KSrikG52H"},
+  {"nome":"Indie","id":"1RAbucf7PYNndnSiujunDW"},
+  {"nome":"Italianas","id":"50Uak7s6TNz0Q9Siu4OUiB"},
+  {"nome":"Italo Dance","id":"35RMji3FrflUeHjataMSIx"},
+  {"nome":"James Blunt","id":"341RRx3jx72KQfT30z6Nn7"},
+  {"nome":"Khaled","id":"5FEtKVC3EQBtLCh4Wulc7j"},
+  {"nome":"La Vela Puerca","id":"0vi5zCags05Ly1Q9m5Szzx"},
+  {"nome":"Lady Gaga","id":"7tUUUflIkwlo9ldMVuvJQb"},
+  {"nome":"Las Pastillas del Abuelo","id":"3PMHJSC9zbYuLXsjNIc3d7"},
+  {"nome":"Latino","id":"5p5NpiZlSkAwjsMA3ZulVM"},
+  {"nome":"Laura Pausini","id":"4cUSP07v8aoSox14aU4KFx"},
+  {"nome":"Leandro & Leonardo","id":"2FumWyesO0J4dx6kdGJoyh"},
+  {"nome":"Leo Rojas","id":"4yiI1PT4idSaJMTmhETFUt"},
+  {"nome":"Linkin Park","id":"7aLc3rl7ZAjPy8OScZA894"},
+  {"nome":"Linkin Park","tag":"Live","id":"5TcV41vR8aDPxx0OabDCuD"},
+  {"nome":"Los Redondos","id":"35Ht2pdFOMOcJIQ8FhVc29"},
+  {"nome":"Luiz Gonzaga","id":"0ALaCSPY6kctg7GfdqYtaW"},
+  {"nome":"Maná","id":"3VkXIGBsqPBxzPlO9kNAAo"},
+  {"nome":"Maroon 5","id":"09ekojBJlffwaMh23lXakB"},
+  {"nome":"Massacration","id":"3WFqpNjVxt0L8biMEJ7Wss"},
+  {"nome":"Michael Jackson","id":"36nLj0sd8jbnpwaIEBh7Wc"},
+  {"nome":"Nelly Furtado","id":"1Gh3iECnIh84pNfmUyiqeE"},
+  {"nome":"O Rappa","id":"7kiDW3L96rdqb3emhoWnBs"},
+  {"nome":"O Teatro Mágico","id":"5ScyT4Z55EaJTUHCJGBgYb"},
+  {"nome":"O-Zone","id":"7FfjuvfpJFHhJN3CWqO7Y3"},
+  {"nome":"Ópera","id":"5AlbPIQtu9fB8SZrhKbVLK"},
+  {"nome":"Paramore","id":"1NYqbfyi2qWeETHjFB828a"},
+  {"nome":"Paramore","tag":"Ao Vivo","id":"29mKkMDAd8ihtAKbEnL7zf"},
+  {"nome":"Paula Fernandes","id":"5YWJJYqUVSFKb3nTPfEdJy"},
+  {"nome":"Pop e Rock Latino","id":"7mo51IgJ1o7EpvY2x1gC3v"},
+  {"nome":"Pop e Rock Nacional","id":"1BQ1anpadnSGlMx2Cn3Jg8"},
+  {"nome":"Pop Internacional","id":"2r7aX9HfHMwERPSNP6ZqU0"},
+  {"nome":"Queen","id":"34sMXvcODFU8VRsgVhZYAR"},
+  {"nome":"Quim Barreiros","id":"6DhixgmnWzs9oX5HCUCiQq"},
+  {"nome":"Rammstein","id":"06eFCVdjmjKIR8LkDkyjmt"},
+  {"nome":"Red Hot Chili Peppers","id":"1LY0Fzf9h96Tq9gHwe2fL3"},
+  {"nome":"Reggaeton","id":"7tGeUWq03eE8vVtaEXciq1"},
+  {"nome":"Ritchie 2","id":"38zurBJkkBMkBTQixa4lKd"},
+  {"nome":"Ritchie — Original","id":"4ZqrHL8iTVMmpJjIrJob4q"},
+  {"nome":"Robbie Williams","id":"0zjdxO4kFgMNMIW1FKkfvT"},
+  {"nome":"Rock Internacional","id":"43uFJPFvikTRnv4CBef5tT"},
+  {"nome":"Rod Stewart","id":"21iyO8f3nwrbyAPijOclFF"},
+  {"nome":"Roxette","id":"46uYFlu0BxBK4zblzlJgg6"},
+  {"nome":"RPM","id":"21IFkYZn7lZPMhgqdsPYMM"},
+  {"nome":"Sambas de Enredo","id":"2hFT7TMDQKIJR54B6ClBnX"},
+  {"nome":"Scorpions","id":"00sPPRVy6srMVQPiw542GH"},
+  {"nome":"Seu Jorge","id":"3bjG4T4VyATjBFAlpNWFd0"},
+  {"nome":"Shakira","id":"7u6IpP2W5lzS1AEJX9FRQu"},
+  {"nome":"Shakira","tag":"En Vivo","id":"26NfgHeq1ITLF1VBERcQQ5"},
+  {"nome":"Silvio Santos","id":"1hjFIf4Xjft35nSwSpTxbe"},
+  {"nome":"Skank","id":"5bPBQLEU9OSWFRPmqE9zds"},
+  {"nome":"Soda Stereo","id":"0KRKdvkCKDPhZjvxo1r97f"},
+  {"nome":"Soda Stereo","tag":"En Vivo","id":"2Vq5ibY3SiS4XHsVai16pV"},
+  {"nome":"Stromae","id":"27hoNh0OAikh3CIxYDT21W"},
+  {"nome":"Suas Músicas Mais Ouvidas de Sempre","id":"37i9dQZF1CKMFBxUbxRIAg"},
+  {"nome":"System of a Down","id":"0HFtz3rVOrrGJkFfF9U3u9"},
+  {"nome":"t.A.T.u.","id":"7BNWAZ7Ye1XYteQaNnfzov"},
+  {"nome":"The Black Eyed Peas","id":"3LHVn82uuXRmTTaWPisn4e"},
+  {"nome":"Timbaland","id":"5nmsK9vhpu2YpE2rtuLouC"},
+  {"nome":"Tony Igy","id":"3oUmdK1pOKwT2tF8Tc1N1F"},
+  {"nome":"U2","id":"1h4KUUVnOsrroOXarahXap"},
+  {"nome":"Vetusta Morla","id":"6oZY5HxhwfovlfLem711sd"},
+  {"nome":"Victor & Leo","id":"4ekHWmau3M28Y3wH9Js7uw"},
+  {"nome":"Zé Ramalho","id":"3ivbBFTF1l6h01XalQ58Ot"}
+]
+</script>
+
+<script id="app">
+(() => {
+  "use strict";
+
+  const $ = s => document.querySelector(s);
+  const STORE_KEY = "playlistsSpotify:v1";
+
+  const listEl = $("#playlist-list");
+  const navEl = $("#alphabet");
+  const countEl = $("#count");
+  const emptyEl = $("#empty");
+  const search = $("#search");
+  const addBtn = $("#add-btn");
+  const editBtn = $("#edit-btn");
+  const saveBtn = $("#save-btn");
+  const editor = $("#editor");
+  const form = $("#editor-form");
+  const fTitle = $("#editor-title");
+  const fLink = $("#f-link");
+  const fNome = $("#f-nome");
+  const fTag = $("#f-tag");
+  const fMsg = $("#f-msg");
+  const fOk = $("#f-ok");
+  const toastEl = $("#toast");
+
+  const norm = v => String(v).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const parseId = t => { const m = String(t || "").match(/playlist[\/:]([A-Za-z0-9]{22})/); return m ? m[1] : null; };
+  const valid = p => p && typeof p.nome === "string" && p.nome.trim() && /^[A-Za-z0-9]{22}$/.test(p.id);
+  const clean = p => { const o = { nome: p.nome.trim() }; if (p.tag && String(p.tag).trim()) o.tag = String(p.tag).trim(); o.id = p.id; return o; };
+  const label = p => p.tag ? `${p.nome} (${p.tag})` : p.nome;
+
+  function cmp(a, b) {
+    const x = norm(a.nome), y = norm(b.nome);
+    if (x !== y) return x < y ? -1 : 1;
+    const p = norm(a.tag || ""), q = norm(b.tag || "");
+    return p < q ? -1 : p > q ? 1 : 0;
+  }
+
+  function hash(arr) {
+    const s = JSON.stringify(arr.map(clean).sort((a, b) => (a.id < b.id ? -1 : 1)));
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  function diffCount(a, b) {
+    const A = new Map(a.map(p => [p.id, p]));
+    const B = new Map(b.map(p => [p.id, p]));
+    let n = 0;
+    for (const [id, p] of B) {
+      const o = A.get(id);
+      if (!o || o.nome !== p.nome || (o.tag || "") !== (p.tag || "")) n++;
+    }
+    for (const id of A.keys()) if (!B.has(id)) n++;
+    return n;
+  }
+
+  // ---- dados: o que está gravado no arquivo + alterações guardadas neste navegador
+  const fileData = JSON.parse($("#dados").textContent).filter(valid).map(clean);
+  const baseHash = hash(fileData);
+  let reference = fileData.map(p => ({ ...p }));
+  let list = fileData.map(p => ({ ...p }));
+  let fileHandle = null;
+  let editingId = null;
+
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+    if (s && s.base === baseHash && Array.isArray(s.list)) list = s.list.filter(valid).map(clean);
+  } catch (e) { /* sem localStorage: segue só com o arquivo */ }
+
+  function persist() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ base: baseHash, list })); } catch (e) {}
+  }
+
+  // ---- lista
+  function letterOf(nome) {
+    const c = norm(nome).replace(/[^a-z0-9]/g, "")[0] || "#";
+    return /[a-z]/.test(c) ? c.toUpperCase() : "#";
+  }
+
+  function render() {
+    list.sort(cmp);
+    const letters = [];
+    const width = Math.max(2, String(list.length).length);
+
+    listEl.innerHTML = list.map((p, i) => {
+      const L = letterOf(p.nome);
+      let anchor = "";
+      if (letters[letters.length - 1] !== L) {
+        letters.push(L);
+        anchor = ` id="letra-${L === "#" ? "0" : L}"`;
+      }
+      return `
+    <article class="playlist-row" data-id="${p.id}" data-search="${esc(norm(p.nome + " " + (p.tag || "")))}"${anchor}>
+      <span class="number">${String(i + 1).padStart(width, "0")}</span>
+      <div class="playlist-info">
+        <div class="title-line">
+          <span class="playlist-name">${esc(p.nome)}</span>
+          ${p.tag ? `<span class="badge">${esc(p.tag)}</span>` : ""}
+        </div>
+      </div>
+      <div class="actions">
+        <span class="row-tools">
+          <button type="button" class="icon-btn" data-act="edit" title="Editar" aria-label="Editar ${esc(label(p))}">✎</button>
+          <button type="button" class="icon-btn danger" data-act="del" title="Remover" aria-label="Remover ${esc(label(p))}">✕</button>
+        </span>
+        <a class="button web" href="https://open.spotify.com/playlist/${p.id}" rel="noopener noreferrer">Abrir no Spotify</a>
+        <a class="button app" href="spotify:playlist:${p.id}" title="Abre no aplicativo do Spotify, quando instalado">Abrir no aplicativo</a>
+      </div>
+    </article>`;
+    }).join("");
+
+    navEl.innerHTML = letters.map(L => `<a href="#letra-${L === "#" ? "0" : L}">${L}</a>`).join("");
+    countEl.textContent = `${list.length} playlists em ordem alfabética`;
+    applyFilter();
+    updateSave();
+  }
+
+  function applyFilter() {
+    const term = norm(search.value.trim());
+    let visible = 0;
+    for (const row of listEl.children) {
+      const match = row.dataset.search.includes(term);
+      row.style.display = match ? "" : "none";
+      if (match) visible++;
+    }
+    emptyEl.style.display = visible ? "none" : "block";
+  }
+
+  function updateSave() {
+    const n = diffCount(reference, list);
+    saveBtn.hidden = n === 0;
+    saveBtn.innerHTML = `Salvar arquivo<span class="pill">${n}</span>`;
+    saveBtn.title = n === 1 ? "1 alteração ainda não gravada no arquivo" : `${n} alterações ainda não gravadas no arquivo`;
+  }
+
+  function flash(id) {
+    const row = listEl.querySelector(`[data-id="${id}"]`);
+    if (!row) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    row.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    row.classList.remove("flash");
+    void row.offsetWidth;
+    row.classList.add("flash");
+    setTimeout(() => row.classList.remove("flash"), 2000);
+  }
+
+  let toastTimer;
+  function toast(msg, ms = 2600) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), ms);
+  }
+
+  // ---- janela de adicionar / editar
+  let fetchCtl = null;
+  let autoNome = false;
+
+  function setMsg(text, isError = false) {
+    fMsg.textContent = text;
+    fMsg.classList.toggle("error", isError);
+    fOk.disabled = isError;
+  }
+
+  function openEditor(p, link = "") {
+    editingId = p ? p.id : null;
+    fTitle.textContent = p ? "Editar playlist" : "Adicionar playlist";
+    fOk.textContent = p ? "Salvar alterações" : "Adicionar";
+    fLink.value = p ? `https://open.spotify.com/playlist/${p.id}` : link;
+    fNome.value = p ? p.nome : "";
+    fTag.value = p ? (p.tag || "") : "";
+    autoNome = !p;
+    setMsg("");
+    editor.showModal();
+    if (p || link) fNome.focus(); else fLink.focus();
+    if (!p && link) onLink();
+  }
+
+  async function onLink() {
+    if (fetchCtl) { fetchCtl.abort(); fetchCtl = null; }
+    const raw = fLink.value.trim();
+    if (!raw) { setMsg(""); return; }
+
+    const id = parseId(raw);
+    if (!id) { setMsg("Esse link não é de uma playlist do Spotify.", true); return; }
+
+    const dup = list.find(p => p.id === id && p.id !== editingId);
+    if (dup) { setMsg(`Essa playlist já está na lista como “${label(dup)}”.`, true); return; }
+
+    if (!autoNome && fNome.value.trim()) { setMsg(""); return; }
+
+    setMsg("Buscando o nome da playlist…");
+    const ctl = fetchCtl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 6000);
+    try {
+      const url = "https://open.spotify.com/oembed?url=" + encodeURIComponent("https://open.spotify.com/playlist/" + id);
+      const r = await fetch(url, { signal: ctl.signal });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      if (ctl !== fetchCtl) return;
+      const title = String(j.title || "").replace(/^this is\s+/i, "").trim();
+      if (title && (autoNome || !fNome.value.trim())) {
+        fNome.value = title;
+        if (document.activeElement !== fTag) { fNome.focus(); fNome.select(); }
+        setMsg("Nome puxado do Spotify. Ajuste se quiser e aperte Enter.");
+      } else {
+        setMsg("Digite o nome do artista.");
+      }
+    } catch (e) {
+      if (ctl === fetchCtl) {
+        setMsg("Não deu pra puxar o nome sozinho. Digite o nome do artista.");
+        if (document.activeElement !== fTag) fNome.focus();
+      }
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  fLink.addEventListener("input", onLink);
+  fNome.addEventListener("input", () => { autoNome = false; if (!fMsg.classList.contains("error")) setMsg(""); });
+  $("#f-cancel").addEventListener("click", () => editor.close());
+  editor.addEventListener("close", () => { if (fetchCtl) { fetchCtl.abort(); fetchCtl = null; } });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const id = parseId(fLink.value);
+    const nome = fNome.value.trim();
+    if (!id) { setMsg("Cole o link de uma playlist do Spotify.", true); fLink.focus(); return; }
+    const dup = list.find(p => p.id === id && p.id !== editingId);
+    if (dup) { setMsg(`Essa playlist já está na lista como “${label(dup)}”.`, true); return; }
+    if (!nome) { setMsg("Digite o nome do artista."); fNome.focus(); return; }
+
+    const item = clean({ nome, tag: fTag.value, id });
+    const wasEditing = editingId;
+    if (wasEditing) list[list.findIndex(p => p.id === wasEditing)] = item;
+    else list.push(item);
+
+    editor.close();
+    persist();
+    search.value = "";
+    render();
+    flash(id);
+    toast(wasEditing ? `“${label(item)}” atualizada` : `“${label(item)}” adicionada`);
+  });
+
+  // colar um link de playlist em qualquer lugar da página abre a janela já preenchida
+  document.addEventListener("paste", e => {
+    if (editor.open) return;
+    const text = (e.clipboardData && e.clipboardData.getData("text")) || "";
+    if (!parseId(text)) return;
+    e.preventDefault();
+    openEditor(null, text.trim());
+  });
+
+  addBtn.addEventListener("click", () => openEditor(null));
+
+  editBtn.addEventListener("click", () => {
+    const on = document.body.classList.toggle("editing");
+    editBtn.textContent = on ? "Concluir" : "Editar lista";
+    editBtn.setAttribute("aria-pressed", String(on));
+  });
+
+  listEl.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const id = btn.closest(".playlist-row").dataset.id;
+    const p = list.find(x => x.id === id);
+    if (!p) return;
+    if (btn.dataset.act === "edit") {
+      openEditor(p);
+    } else if (confirm(`Remover “${label(p)}” da lista?`)) {
+      list = list.filter(x => x.id !== id);
+      persist();
+      render();
+      toast(`“${label(p)}” removida`);
+    }
+  });
+
+  search.addEventListener("input", applyFilter);
+
+  // ---- salvar: gera o .htm completo com a lista nova dentro
+  function fileName() {
+    try {
+      const n = decodeURIComponent(location.pathname.split("/").pop() || "");
+      if (/\.html?$/i.test(n)) return n;
+    } catch (e) {}
+    return "Playlists do Spotify.htm";
+  }
+
+  function serialize() {
+    const rows = [...list].sort(cmp).map(p => "  " + JSON.stringify(clean(p)).replace(/</g, "\\u003c"));
+    return "\n[\n" + rows.join(",\n") + "\n]\n";
+  }
+
+  function buildHTML() {
+    const root = document.documentElement.cloneNode(true);
+    const head = root.querySelector("head");
+    const body = root.querySelector("body");
+
+    // tira qualquer coisa que extensão do navegador tenha injetado na página
+    for (const a of [...root.attributes]) root.removeAttribute(a.name);
+    root.setAttribute("lang", "pt-BR");
+    for (const el of [...root.children]) if (el !== head && el !== body) el.remove();
+    for (const el of [...head.children]) if (!el.matches("meta, title, style#app-style")) el.remove();
+    for (const el of [...body.children]) if (!el.matches("header, main, dialog#editor, #toast, script#dados, script#app")) el.remove();
+    for (const a of [...body.attributes]) body.removeAttribute(a.name);
+
+    root.querySelector("#playlist-list").innerHTML = "";
+    root.querySelector("#alphabet").innerHTML = "";
+    root.querySelector("#empty").removeAttribute("style");
+    root.querySelector("#editor").removeAttribute("open");
+    root.querySelector("#f-ok").removeAttribute("disabled");
+    root.querySelector("#f-msg").textContent = "";
+    root.querySelector("#f-msg").className = "form-msg";
+    root.querySelector("#toast").className = "toast";
+    root.querySelector("#toast").textContent = "";
+    root.querySelector("#save-btn").setAttribute("hidden", "");
+    root.querySelector("#save-btn").textContent = "Salvar arquivo";
+    root.querySelector("#save-btn").removeAttribute("title");
+    root.querySelector("#edit-btn").textContent = "Editar lista";
+    root.querySelector("#edit-btn").setAttribute("aria-pressed", "false");
+    root.querySelector("#dados").textContent = serialize();
+
+    return "<!DOCTYPE html>\n" + root.outerHTML + "\n";
+  }
+
+  function markSaved(msg, ms) {
+    reference = list.map(p => ({ ...p }));
+    updateSave();
+    toast(msg, ms);
+  }
+
+  saveBtn.addEventListener("click", async () => {
+    const text = buildHTML();
+    const name = fileName();
+
+    // Chrome / Edge: grava direto por cima do arquivo escolhido
+    if (window.showSaveFilePicker) {
+      try {
+        if (!fileHandle) {
+          fileHandle = await window.showSaveFilePicker({
+            suggestedName: name,
+            types: [{ description: "Página HTML", accept: { "text/html": [".htm", ".html"] } }]
+          });
+        }
+        const w = await fileHandle.createWritable();
+        await w.write(text);
+        await w.close();
+        markSaved("Arquivo salvo");
+        return;
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+        fileHandle = null;
+      }
+    }
+
+    // Firefox e outros: baixa o arquivo atualizado
+    const url = URL.createObjectURL(new Blob([text], { type: "text/html;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    markSaved("Arquivo baixado. Troque o antigo por ele.", 4500);
+  });
+
+  render();
+})();
+</script>
+
+
+</body></html>
